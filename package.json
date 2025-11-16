@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:app-frontend": "node dist/app-frontend/server/server.mjs"
+    "ssr-app": "node dist/app-frontend/server/server.mjs"
   },
   "prettier": {
     "printWidth": 100,
@@ -31,8 +31,10 @@
     "@angular/platform-server": "^20.3.0",
     "@angular/router": "^20.3.0",
     "@angular/ssr": "^20.3.6",
+    "css": "^3.0.0",
     "express": "^5.1.0",
     "rxjs": "~7.8.0",
+    "tailwind": "^4.0.0",
     "tslib": "^2.3.0"
   },
   "devDependencies": {
