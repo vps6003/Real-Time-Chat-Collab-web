@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import dotenv from 'dotenv';
-import { AuthResponse, LoginCredentials, RegisterPayload } from '../../feature/auth/auth.models';
+import { AuthResponse, LoginCredentials, RegisterPayload } from '../../features/auth/auth.models';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { isPlatformBrowser } from '@angular/common';

@@ -1,8 +1,8 @@
-import { AuthState } from '../feature/auth/auth.models';
-import { CallState } from '../feature/calls/call.models';
-import { ChatState } from '../feature/chat/chat.models';
-import { PresenceState } from '../feature/presence/presence.models';
-import { RoomState } from '../feature/rooms/room.models';
+import { AuthState } from '../features/auth/auth.models';
+import { CallState } from '../features/calls/call.models';
+import { ChatState } from '../features/chat/chat.models';
+import { PresenceState } from '../features/presence/presence.models';
+import { RoomState } from '../features/rooms/room.models';
 
 export interface AppState {
   //interface properties go here
