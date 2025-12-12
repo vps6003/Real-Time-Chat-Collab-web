@@ -1,32 +1,23 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
-import dotenv from 'dotenv';
 import { AuthResponse, LoginCredentials, RegisterPayload } from '../../features/auth/auth.models';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { isPlatformBrowser } from '@angular/common';
 
-dotenv.config();
-
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private readonly Token_Key = 'vps_chat_room';
-  private readonly API_KEY = process?.env['api_base_endpoint'];
+  private readonly Token_Key = environment.TOKEN_KEY;
+  private readonly API_KEY = environment.apiUrl;
 
   constructor(private http: HttpClient, @Inject(PLATFORM_ID) private platformId: Object) {}
 
   login = (credentials: LoginCredentials): Observable<AuthResponse> => {
-    return this.http.post<AuthResponse>(
-      `${environment.apiUrl}/${this.API_KEY}/auth/login`,
-      credentials
-    );
+    return this.http.post<AuthResponse>(`${this.API_KEY}/auth/login`, credentials);
   };
 
   register = (payload: RegisterPayload): Observable<AuthResponse> => {
-    return this.http.post<AuthResponse>(
-      `${environment.apiUrl}/${this.API_KEY}/auth/register`,
-      payload
-    );
+    return this.http.post<AuthResponse>(`${this.API_KEY}/auth/register`, payload);
   };
 
   saveToken = (token: string): void => {

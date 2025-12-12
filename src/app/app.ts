@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AppState } from './store/app.state';
@@ -12,7 +12,9 @@ import { AppState } from './store/app.state';
 export class App {
   protected readonly title = signal('app-frontend');
 
-  constructor(private store: Store<AppState>) {
-    console.log('Store injected :', this.store);
+  private store = inject(Store<AppState>);
+
+  constructor() {
+    // console.log('Store injected :', this.store);
   }
 }
