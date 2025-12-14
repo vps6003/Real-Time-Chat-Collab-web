@@ -1,44 +1,200 @@
-<div class="login-container">
-  <div>
-    <h2>Login</h2>
-
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-      <!-- Email -->
-      <label>Email</label>
-      <input type="email" formControlName="email" placeholder="Enter email" />
-      <div
-        class="error"
-        *ngIf="
-          loginForm.get('email')?.touched && loginForm.get('email')?.invalid
-        "
+<div class="container">
+  <div class="shadow bg-black flex items-center min-h-screen justify-center">
+    @if(!isSignUp){
+    <div
+      class="shadow p-16 md:p-20 xl:p-32 rounded-md bg-[aquamarine] w-full max-w-[52rem]"
+    >
+      <h2
+        class="font-bold text-color text-lg md:text-xl xl:text-3xl text-center mb-8"
       >
-        Valid email is required.
-      </div>
+        Login
+      </h2>
 
-      <!-- Password -->
-      <label>Password</label>
-      <input
-        type="password"
-        formControlName="password"
-        placeholder="Enter password"
-      />
-      <div
-        class="error"
-        *ngIf="
-          loginForm.get('password')?.touched &&
-          loginForm.get('password')?.invalid
-        "
+      <form
+        [formGroup]="loginForm"
+        class="grid grid-cols-4 gap-4 w-full"
+        (ngSubmit)="onSubmit()"
       >
-        Password is required.
-      </div>
+        <!-- Email -->
+        <mat-form-field class="w-full col-span-4">
+          <mat-label>Email</mat-label>
+          <input
+            matInput
+            type="email"
+            formControlName="email"
+            placeholder="Enter email"
+          />
+          <mat-error
+            class="error"
+            *ngIf="
+              loginForm.get('email')?.touched && loginForm.get('email')?.invalid
+            "
+          >
+            Valid email is required.
+          </mat-error>
+        </mat-form-field>
 
-      <!-- Submit -->
-      <button
-        type="submit"
-        [disabled]="loginForm.invalid || (loading$ | async)"
+        <!-- Password -->
+        <mat-form-field class="w-full col-span-4">
+          <mat-label>Password</mat-label>
+          <input
+            matInput
+            type="password"
+            formControlName="password"
+            placeholder="Enter password"
+          />
+          <mat-error
+            class="error"
+            *ngIf="
+              loginForm.get('password')?.touched &&
+              loginForm.get('password')?.invalid
+            "
+          >
+            Password is required.
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Submit -->
+        <button
+          class="text-center w-full col-span-1"
+          mat-raised-button
+          color="primary"
+          type="submit"
+          [disabled]="isSignUp && (loginForm.invalid || (loading$ | async))"
+        >
+          {{ (loading$ | async) ? "Logging In...." : "Log In" }}
+        </button>
+        <button
+          type="button"
+          class="text-center w-full col-span-3"
+          mat-raised-button
+          color="warn"
+          [disabled]="isSignUp"
+          (click)="isSignUp = !isSignUp"
+        >
+          Register
+        </button>
+      </form>
+    </div>
+    } @else {
+    <div
+      class="shadow p-16 md:p-20 xl:p-32 rounded-md bg-cyan-400 w-full max-w-[52rem]"
+    >
+      <h2
+        class="font-bold text-color mx-24 rounded-full text-lg md:text-xl xl:text-3xl text-center mb-8"
       >
-        {{ (loading$ | async) ? "Logging In...." : "Log In" }}
-      </button>
-    </form>
+        Register New User
+      </h2>
+
+      <form
+        [formGroup]="registerForm"
+        class="grid grid-cols-4 gap-4 w-full"
+        (ngSubmit)="onSubmit()"
+      >
+        <!-- Username -->
+        <mat-form-field class="w-full col-span-4">
+          <mat-label>Username</mat-label>
+          <input
+            matInput
+            type="text"
+            formControlName="username"
+            placeholder="Enter User Name"
+          />
+          <mat-error
+            class="error"
+            *ngIf="
+              registerForm.get('username')?.touched &&
+              registerForm.get('username')?.invalid
+            "
+          >
+            Name is required.
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Email -->
+        <mat-form-field class="w-full col-span-4">
+          <mat-label>Email</mat-label>
+          <input
+            matInput
+            type="email"
+            formControlName="email"
+            placeholder="Enter email"
+          />
+          <mat-error
+            class="error"
+            *ngIf="
+              registerForm.get('email')?.touched &&
+              registerForm.get('email')?.invalid
+            "
+          >
+            Valid email is required.
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Password -->
+        <mat-form-field class="w-full col-span-4">
+          <mat-label>Password</mat-label>
+          <input
+            matInput
+            type="password"
+            formControlName="password"
+            placeholder="Enter password"
+          />
+          <mat-error
+            class="error"
+            *ngIf="
+              registerForm.get('password')?.touched &&
+              registerForm.get('password')?.invalid
+            "
+          >
+            Password is required.
+          </mat-error>
+        </mat-form-field>
+
+        <!--Confirm Password -->
+        <mat-form-field class="w-full col-span-4">
+          <mat-label>Confirm Password (Re-enter the password)</mat-label>
+          <input
+            matInput
+            type="password"
+            formControlName="confirmPassword"
+            placeholder="Re-Enter password"
+          />
+          <mat-error
+            class="error"
+            *ngIf="
+              registerForm.hasError('passwordMismatch') &&
+              registerForm.get('confirmPassword')?.touched
+            "
+          >
+            Passwords do not match.
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Submit -->
+        <button
+          class="text-center w-full col-span-1"
+          mat-raised-button
+          color="primary"
+          type="submit"
+          [disabled]="!isSignUp && (registerForm.invalid || (loading$ | async))"
+        >
+          {{
+            (loading$ | async) ? "Registering & Logging  In...." : "Register"
+          }}
+        </button>
+        <button
+          class="text-center w-full col-span-3"
+          mat-raised-button
+          color="warn"
+          type="button"
+          [disabled]="!isSignUp"
+          (click)="isSignUp = !isSignUp"
+        >
+          Login
+        </button>
+      </form>
+    </div>
+    }
   </div>
 </div>

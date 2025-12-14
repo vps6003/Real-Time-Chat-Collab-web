@@ -8,6 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule, MatError } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { passwordMatchValidator } from '../../../core/abstract-validators/password-match.validator';
 
 @Component({
   selector: 'app-login',
@@ -23,6 +24,7 @@ import { MatIconModule } from '@angular/material/icon';
   // styleUrls : ["./login.component.scss"]
 })
 export class LoginComponent {
+  isSignUp: boolean = false;
   private formBuilder = inject(FormBuilder);
 
   private store = inject(Store);
@@ -35,6 +37,17 @@ export class LoginComponent {
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(6)]],
   });
+  registerForm = this.formBuilder.group(
+    {
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      confirmPassword: ['', [Validators.required, Validators.minLength(6)]],
+      username: ['', [Validators.required, Validators.minLength(5)]],
+    },
+    {
+      validators: passwordMatchValidator,
+    }
+  );
 
   onSubmit() {
     if (this.loginForm.invalid) return;
